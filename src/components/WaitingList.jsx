@@ -7,7 +7,7 @@ function WaitingList(props) {
   return (
     <div>
       {props.list.map((item) => (
-        <Item item={item} onLowerHand={props.onLowerHand} />
+        <Item item={item} onLowerHand={props.onLowerHand}/>
       ))}
     </div>
   );
