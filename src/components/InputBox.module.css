@@ -1,0 +1,77 @@
+.section {
+	max-width: 600px;
+	margin: 2em auto;
+	padding: 1em;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.137);
+}
+
+input {
+	width: 100%;
+}
+
+.input,
+.select {
+	padding: 0.7em;
+}
+
+.input,
+.button {
+	background: white;
+}
+
+.selectContainer,
+.button {
+	flex-grow: 1;
+}
+
+.input,
+.select,
+.button {
+	outline: none;
+	font-size: 1.2rem;
+	border: 1px solid #c3c3c3;
+	border-radius: 5px;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: 3fr 2fr;
+	gap: 1em;
+	margin-top: 1em;
+}
+
+.selectContainer {
+	position: relative;
+	background-color: white;
+	border-radius: 5px;
+}
+
+.selectContainer::after {
+	content: "ᐁ";
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.8rem;
+	color: #c3c3c3;
+	width: 20%;
+	top: 15%;
+	bottom: 15%;
+	right: 0;
+	border-left: 1px solid #c3c3c3;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.select {
+	appearance: none;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	position: relative;
+	z-index: 2;
+}
+
+.button {
+	font-size: 1.7rem;
+}
