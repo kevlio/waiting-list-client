@@ -1,37 +1,56 @@
 import React, { useState } from "react";
+import styles from "./InputBox.module.css";
 
 const breakoutRooms = Array(12)
-  .fill("")
-  .map((_, i) => <option value={`BR${i + 1}`} key={"option" + i}>BR{i + 1}</option>);
+	.fill("")
+	.map((_, i) => (
+		<option value={`BR${i + 1}`} key={"option" + i}>
+			BR{i + 1}
+		</option>
+	));
 
 function InputBox(props) {
-  const [name, setName] = useState("");
-  const [room, setRoom] = useState("general");
-  // Namn, breakout-room
+	const [name, setName] = useState("");
+	const [room, setRoom] = useState("general");
+	// Namn, breakout-room
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
+	function handleNameChange(e) {
+		setName(e.target.value);
+	}
 
-  function handleRoomChange(e) {
-    setRoom(e.target.value)
-  }
+	function handleRoomChange(e) {
+		setRoom(e.target.value);
+	}
 
-  return (
-    <div>
-      <input
-        onChange={handleNameChange}
-        placeholder="Namn"
-        type="text"
-        value={name}
-      />
-      <select onChange={handleRoomChange} value={room}>
-        <option value="general">General</option>
-        {breakoutRooms}
-      </select>
-      <button onClick={() => props.onRaiseHand(name, room)}>✋</button>
-    </div>
-  );
+	return (
+		<section className={styles.section}>
+			<input
+				className={styles.input}
+				onChange={handleNameChange}
+				placeholder="Namn"
+				type="text"
+				value={name}
+			/>
+			<div className={styles.container}>
+				<div className={styles.selectContainer}>
+					<select
+						className={styles.select}
+						onChange={handleRoomChange}
+						value={room}
+					>
+						<option value="general">General</option>
+						{breakoutRooms}
+					</select>
+				</div>
+				<button
+					className={styles.button}
+					onClick={() => props.onRaiseHand(name, room)}
+				>
+					✋
+				</button>
+			</div>
+		</section>
+	);
 }
 
 export default InputBox;
