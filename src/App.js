@@ -5,9 +5,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getRandomColor } from "./utils";
 import WaitingList from "./components/WaitingList";
 import ReactCanvasConfetti from "react-canvas-confetti";
+import MatchedList from "./components/MatchedList";
 
 function App() {
   const [list, setList] = useState([]);
+  const [matchedWith, setMatchedWith] = useState([]);
+  const [matchmakeCount, setMatchmakeCount] = useState(0);
   const socket = useRef();
   // Timestamp: Indikation på hur längesen någon bad om hjälp
   // ✅ Math.random för random färg
@@ -17,7 +20,7 @@ function App() {
   // Wishlist: Notifikation
 
   useEffect(() => {
-    socket.current = io("https://waitinglist.osuka.dev");
+    socket.current = io("localhost:8000");
 
     socket.current.on("connect", () => {
       console.log("Connected");
@@ -34,7 +37,23 @@ function App() {
 
     socket.current.on("confetti", () => {
       fire();
-    })
+    });
+
+    socket.current.on("matchmake:notify", (length) => {
+      if (length === 0) {
+        setMatchedWith([])
+      }
+      setMatchmakeCount(length);
+
+    });
+
+    socket.current.on("matchmake:update", (list) => {
+      setMatchedWith(list);
+    });
+
+    socket.current.onAny((event, ...args) => {
+      console.log(event, args);
+    });
   }, []);
 
   function raiseHand(name, room) {
@@ -52,6 +71,11 @@ function App() {
     });
   }
 
+  function joinMatchmaking(name) {
+    if (name) {
+      socket.current.emit("matchmake:join", { name });
+    }
+  }
 
   const animationInstanceRef = useRef(null);
 
@@ -110,7 +134,12 @@ function App() {
           left: 0,
         }}
       />
-      <InputBox onRaiseHand={raiseHand} />
+      <InputBox
+        onRaiseHand={raiseHand}
+        onJoinMatchmaking={joinMatchmaking}
+        matchmakeCount={matchmakeCount}
+      />
+      <MatchedList matchedWith={matchedWith} socket={socket.current} />
       <WaitingList onLowerHand={lowerHand} list={list} />
     </div>
   );

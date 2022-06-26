@@ -75,4 +75,27 @@ input {
 
 .button {
 	font-size: 1.7rem;
+	position: relative;
+}
+
+.buttons {
+	display: grid;
+	grid-template-columns: 3fr 2fr;
+	gap: 1em;
+}
+
+/* red dot showing the amount of waiting */ 
+.dot {
+	width: 24px;;
+	height: 24px;
+	font-size: 18px;
+	border-radius: 50%;
+	background-color: red;
+	position: absolute;
+	right: -12px;
+	top: -12px;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
