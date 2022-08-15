@@ -20,7 +20,7 @@ function App() {
   // Wishlist: Notifikation
 
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_BACKEND_URL, { transports: ['websockets'] });
+    socket.current = io(process.env.REACT_APP_BACKEND_URL);
 
     socket.current.on("connect", () => {
       console.log("Connected");
