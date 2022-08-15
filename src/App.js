@@ -20,7 +20,7 @@ function App() {
   // Wishlist: Notifikation
 
   useEffect(() => {
-    socket.current = io("https://osuka-waitinglist-backend.herokuapp.com/");
+    socket.current = io(process.env.REACT_APP_BACKEND_URL);
 
     socket.current.on("connect", () => {
       console.log("Connected");
