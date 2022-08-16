@@ -41,10 +41,9 @@ function App() {
 
     socket.current.on("matchmake:notify", (length) => {
       if (length === 0) {
-        setMatchedWith([])
+        setMatchedWith([]);
       }
       setMatchmakeCount(length);
-
     });
 
     socket.current.on("matchmake:update", (list) => {
@@ -134,6 +133,7 @@ function App() {
           left: 0,
         }}
       />
+      <p>test process.env.TEXT: {process.env.TEXT}</p>
       <InputBox
         onRaiseHand={raiseHand}
         onJoinMatchmaking={joinMatchmaking}
