@@ -9,6 +9,7 @@ import MatchedList from "./components/MatchedList";
 
 function App() {
   const [list, setList] = useState([]);
+  const [text, setText] = useState("");
   const [matchedWith, setMatchedWith] = useState([]);
   const [matchmakeCount, setMatchmakeCount] = useState(0);
   const socket = useRef();
@@ -29,6 +30,11 @@ function App() {
     socket.current.on("new", (data) => {
       console.log(data);
       setList(data);
+    });
+
+    socket.current.on("tjoflojt", (data) => {
+      console.log(data);
+      setText(data);
     });
 
     socket.current.on("error", (err) => {
@@ -133,7 +139,7 @@ function App() {
           left: 0,
         }}
       />
-      <p>test process.env.TEXT: {process.env.TEXT}</p>
+      <p>test process.env.TEXT: {text}</p>
       <InputBox
         onRaiseHand={raiseHand}
         onJoinMatchmaking={joinMatchmaking}
